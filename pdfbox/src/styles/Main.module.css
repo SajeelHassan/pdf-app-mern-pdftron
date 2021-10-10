@@ -1,0 +1,87 @@
+/* Docs Title */
+.MainWrapper {
+  width: 100%;
+}
+.userIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #c63906;
+  border-radius: 50%;
+  font-family: "Noto Sans";
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.userIconDark{
+  background-color: #F27F5A;
+  color: #0B111B;
+}
+.userAndTitle {
+  display: flex;
+  align-items: center;
+  padding: 1.125rem 3rem;
+  /* border-top: 1px solid #f5f5f5; */
+}
+.userAndTitleDark{
+  border-top: 1px solid #171D26;
+}
+.title {  
+  font-weight: 700;
+  font-size: 1.75rem;
+  line-height: 2.5rem;
+  color: #32373f;
+  margin-left: 1.75rem;
+}
+.titleDark{
+  color: #ffffff;
+
+}
+
+/* upload section */
+
+/* Main DOcs */
+.mainSectionWrapper {
+  background-color: #ffffff;
+  padding: 0.75rem 3rem;
+}
+.mainSection {
+  background-color: #f5f5f5;
+  padding: 2.25rem;
+  border-radius: 1rem;
+}
+.mainSectionWrapperDark{
+  background-color: #0B111B;
+}
+.mainSectionDark{
+  background-color: #171D26;
+
+}
+@media (min-width: 1920px) {
+  .MainWrapper {
+    width: 1184px;
+  }
+}
+
+@media(max-width:630px){
+  .userAndTitle{
+  padding: 1.125rem;
+
+  }
+  .mainSectionWrapper{
+  padding: 0.75rem 1.125rem;
+
+  }
+}
+@media(max-width:470px){
+  .mainSectionWrapper{
+  padding: 0.5rem;
+
+    margin-bottom: 100px;
+  }
+  .mainSection {
+  
+  padding: 24px 8px;}
+}

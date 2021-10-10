@@ -1,0 +1,32 @@
+.container {
+  width: 300px;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: 5px;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  color: white;
+}
+.danger {
+  background-color: rgb(214, 66, 66);
+}
+.success {
+  background-color: rgb(51, 168, 51);
+}
+.icon {
+  font-family: "Objective" !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  font-size: 1rem;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon:before {
+  content: "\f157";
+}

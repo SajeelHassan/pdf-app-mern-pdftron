@@ -1,0 +1,7 @@
+.docAndInfo {
+  display: flex;
+}
+
+.docAndInfoDark{
+  background-color: #0B111B;
+}

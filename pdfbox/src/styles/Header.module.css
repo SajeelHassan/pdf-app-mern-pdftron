@@ -1,0 +1,93 @@
+.headerWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4.25rem;
+  max-width: 100%;
+  padding: 0 3rem;
+  position: sticky;
+  top: 0;
+}
+.headerWrapperLight {
+  border-top: 8px solid #c63906;
+  background-color: #ffffff;
+  border-bottom: 1px solid #f5f5f5;
+}
+.headerWrapperDark {
+  border-top: 8px solid #f27f5a;
+  background-color: #0b111b;
+  border-bottom: 1px solid #171d26;
+}
+.logo {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-weight: 900;
+  font-size: 1.75rem;
+  line-height: 2.5rem;
+  letter-spacing: -1.5%;
+  cursor: pointer;
+}
+.logoLight {
+  color: #32373f;
+}
+.logoDark {
+  color: #ffffff;
+}
+.navOptions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.toggleIcon::before {
+  font-family: Objective !important;
+  font-size: 1.125rem;
+  font-weight: 500;
+  text-align: center;
+}
+.toggleIconLight::before {
+  content: "\f145";
+}
+.toggleIconDark::before {
+  content: "\f5a8";
+  color: white;
+}
+.themeToggler {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1.75rem;
+}
+.themeTogglerLight {
+  background-color: #f5f5f5;
+}
+.themeTogglerDark {
+  background-color: #171d26;
+}
+.userIcon {
+  width: 48px;
+  height: 48px;
+  background-color: #c63906;
+  border-radius: 50%;
+  font-family: "Noto Sans";
+  font-size: 1.125rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.userIconLight {
+  color: white;
+}
+.userIconDark {
+  background-color: #f27f5a;
+  color: #0b111b;
+}
+
+@media (max-width: 470px) {
+  .headerWrapper {
+    padding: 0 16px;
+  }
+}

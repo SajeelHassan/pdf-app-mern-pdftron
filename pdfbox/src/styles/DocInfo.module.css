@@ -1,0 +1,94 @@
+.wrapper {
+  width: 28.75rem;
+  padding: 18px 48px 18px 16px;
+}
+.header {
+  display: flex;
+}
+.icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: 600;
+  font-size: 1.125rem;
+  line-height: 1.5625rem;
+  border-radius: 0.5rem;
+}
+.iconDark{
+  color:#0B111B;
+}
+.title {
+  font-weight: bold;
+  font-size: 1.75rem;
+  line-height: 2.5rem;
+  margin-left: 1.75rem;
+  color: #32373F;
+
+}
+.titleDark{
+  color:#ffffff;
+
+}
+.tabs {
+  display: flex;
+  flex-direction: column;
+}
+.tabs > p {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  /* padding: 16px 0 12px 0; */
+  padding: 32px 0 12px 0;
+  color: #32373F;
+}
+.tabsDark > p {
+  color: #ffffff;
+
+}
+.marker {
+  width: 3.4375rem;
+  height: 4px;
+  background-color: #0266c8;
+  border-radius: 0.25rem;
+}
+.markerDark{
+  background-color: #5CA3FF;
+}
+.infos {
+  padding: 12px 0;
+}
+.infos > div {
+  display: flex;
+  /* justify-content: space-between; */
+}
+.value,
+.key {
+  font-family: Roboto;
+  font-size: 0.875rem;
+  line-height: 1.375rem;
+  padding-top: 12px;
+  font-weight: 400;
+}
+.value {
+  color: #32373f;
+}
+.valueDark{
+  color: #ffffff;
+}
+.key {
+  width: 5.375rem;
+  margin-right: 0.75rem;
+  color: #707070;
+}
+.keyDark{
+  color:#96A5BD;
+}
+
+@media (max-width: 960px) {
+  .wrapper {
+    display: none;
+  }
+}
