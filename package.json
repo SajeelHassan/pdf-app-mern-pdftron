@@ -8,7 +8,11 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "pdfbox": "npm start --prefix pdfbox",
-    "dev": "concurrently \"npm run server\" \"npm run pdfbox\""
+    "dev": "concurrently \"npm run server\" \"npm run pdfbox\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm client-install npm install npm && run build"
+  },
+  "engines": {
+    "node": "10.16.0"
   },
   "author": "Andrew",
   "license": "MIT",
