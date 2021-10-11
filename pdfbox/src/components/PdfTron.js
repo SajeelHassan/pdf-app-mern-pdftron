@@ -46,18 +46,20 @@ const PdfTron = () => {
           });
           annotationManager.addEventListener(
             "annotationChanged",
-            (annotations, action, { imported }) => {
+            async (annotations, action, { imported }) => {
               // If the event is triggered by importing then it can be ignored
               // This will happen when importing the initial annotations
               // from the server or individual changes from other users
 
               if (imported) return;
-              const xfdfString = annotationManager.exportAnnotations({
-                links: false,
-                widgets: false,
-              });
 
-              saveAnnotation(res.data._id, xfdfString);
+              saveAnnotation(
+                res.data._id,
+                await annotationManager.exportAnnotations({
+                  links: false,
+                  widgets: false,
+                })
+              );
             }
           );
         });
