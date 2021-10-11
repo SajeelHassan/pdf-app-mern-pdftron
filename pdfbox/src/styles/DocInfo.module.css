@@ -16,21 +16,20 @@
   font-size: 1.125rem;
   line-height: 1.5625rem;
   border-radius: 0.5rem;
+  padding: 10px;
 }
-.iconDark{
-  color:#0B111B;
+.iconDark {
+  color: #0b111b;
 }
 .title {
   font-weight: bold;
   font-size: 1.75rem;
   line-height: 2.5rem;
   margin-left: 1.75rem;
-  color: #32373F;
-
+  color: #32373f;
 }
-.titleDark{
-  color:#ffffff;
-
+.titleDark {
+  color: #ffffff;
 }
 .tabs {
   display: flex;
@@ -42,11 +41,10 @@
   line-height: 1.25rem;
   /* padding: 16px 0 12px 0; */
   padding: 32px 0 12px 0;
-  color: #32373F;
+  color: #32373f;
 }
 .tabsDark > p {
   color: #ffffff;
-
 }
 .marker {
   width: 3.4375rem;
@@ -54,8 +52,8 @@
   background-color: #0266c8;
   border-radius: 0.25rem;
 }
-.markerDark{
-  background-color: #5CA3FF;
+.markerDark {
+  background-color: #5ca3ff;
 }
 .infos {
   padding: 12px 0;
@@ -75,7 +73,7 @@
 .value {
   color: #32373f;
 }
-.valueDark{
+.valueDark {
   color: #ffffff;
 }
 .key {
@@ -83,8 +81,8 @@
   margin-right: 0.75rem;
   color: #707070;
 }
-.keyDark{
-  color:#96A5BD;
+.keyDark {
+  color: #96a5bd;
 }
 
 @media (max-width: 960px) {

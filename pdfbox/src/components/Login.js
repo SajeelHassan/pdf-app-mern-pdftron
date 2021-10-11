@@ -2,7 +2,7 @@ import React, { useRef, useState, useContext } from "react";
 import styles from "../styles/Login.module.css";
 import Alert from "./Alert";
 import AuthContext from "../Contexts/AuthContext";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const emailRef = useRef();

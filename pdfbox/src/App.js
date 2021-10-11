@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Redirect, Route, Switch } from "react-router";
+import { Redirect, Route } from "react-router";
 import Login from "./components/Login";
 import Home from "./pages/dashboard";
 import PdfTron from "./components/PdfTron";
@@ -23,14 +23,17 @@ function App() {
   const toggleThemeHandler = () => {
     if (Cookies.get("themeCookiePdfBox")) {
       Cookies.remove("themeCookiePdfBox");
+      document.body.style.backgroundColor = "white";
     } else {
       Cookies.set("themeCookiePdfBox", "dark", { expires: 365 });
+      document.body.style.backgroundColor = "#0B111B";
     }
     setIsDarkMode((prevVal) => !prevVal);
   };
   useEffect(() => {
     if (Cookies.get("themeCookiePdfBox")) {
       setIsDarkMode(true);
+      document.body.style.backgroundColor = "#0B111B";
     }
     if (Cookies.get("loginCookiePdfBox")) {
       setIsLogin(true);

@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { useRef, useContext } from "react";
+import React, { useContext } from "react";
 import classes from "../styles/Upload.module.css";
 import ThemeContext from "../Contexts/Context";
 
@@ -15,7 +15,6 @@ const colors = [
 ];
 const Upload = ({ uploadFileHandler, setError }) => {
   const { isDarkMode } = useContext(ThemeContext);
-  const uploadBtn = useRef();
   const uploadDoc = (e) => {
     const formData = new FormData();
     const file = e.target.files[0];

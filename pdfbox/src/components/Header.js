@@ -27,7 +27,7 @@ const Header = () => {
           classes.logo,
           isDarkMode ? classes.logoDark : classes.logoLight
         )}
-        onClick={() => history.push("/dashboard")}
+        onClick={() => window.open("/dashboard", "_self")}
       >
         PDFBOX
       </div>

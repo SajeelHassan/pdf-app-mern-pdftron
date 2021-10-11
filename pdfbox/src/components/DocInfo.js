@@ -22,8 +22,8 @@ const DocInfo = ({ info }) => {
       "November",
       "December",
     ];
-    let numDate = date.getDay();
-    let month = months[date.getMonth() + 1].substring(0, 3);
+    let numDate = date.getDate();
+    let month = months[date.getMonth()].substring(0, 3);
     let fullYear = date.getFullYear();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -43,12 +43,12 @@ const DocInfo = ({ info }) => {
               style={{ backgroundColor: content.color }}
               className={clsx(classes.icon, isDarkMode && classes.iconDark)}
             >
-              D3
+              {content.acronym}
             </span>
             <span
               className={clsx(classes.title, isDarkMode && classes.titleDark)}
             >
-              {content.name}
+              {content.name.substring(0, content.name.length - 4)}
             </span>
           </div>
           <div className={clsx(classes.tabs, isDarkMode && classes.tabsDark)}>
@@ -85,7 +85,7 @@ const DocInfo = ({ info }) => {
               <p
                 className={clsx(classes.value, isDarkMode && classes.valueDark)}
               >
-                {dateAndTime(new Date(content.created))}
+                {dateAndTime(new Date(content.modified))}
               </p>
             </div>
             <div className={classes.info}>

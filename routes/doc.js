@@ -8,7 +8,7 @@ router.post("/uploadfile", upload.single("uploading"), async (req, res) => {
     const result = await cloudinary.uploader.upload(req.file.path);
     const body = await JSON.parse(JSON.stringify(req.body));
     // Create new user
-    let doc = new Doc({
+    var doc = new Doc({
       name: body.name,
       size: body.size,
       created: body.created,

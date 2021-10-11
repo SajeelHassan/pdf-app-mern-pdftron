@@ -1,27 +1,58 @@
 import React, { useState, useEffect, useContext } from "react";
 import clsx from "clsx";
-import { useHistory } from "react-router-dom";
 import classes from "../styles/Main.module.css";
 import Search from "./Search";
 import Upload from "./Upload";
 import Favourites from "./Favourites";
 import AllDocs from "./AllDocs";
 import Alert from "./Alert";
+import Progress from "./Progress";
 import ThemeContext from "../Contexts/Context";
 import axios from "axios";
 
 const Main = ({ showInfo, theDocs }) => {
   const [progress, setProgress] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [docs, setDocs] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = React.useState([]);
   const { isDarkMode } = useContext(ThemeContext);
-  const history = useHistory();
-  useEffect(() => {
-    fetch("/doc")
-      .then((res) => res.json())
-      .then((docs) => setDocs(docs.data));
-  }, []);
 
+  const fetchDocs = async () => {
+    try {
+      await fetch("http://localhost:5000/doc")
+        .then((res) => res.json())
+        .then((docs) => {
+          setDocs(docs.data);
+          setLoading(false);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  fetchDocs();
+
+  // useEffect(() => {}, [docs]);
+  const searchDocs = (str) => {
+    if (str.length > 0) {
+      setSearchTerm(str);
+    } else {
+      setSearchTerm("");
+    }
+
+    // setDocs(allDocs);
+  };
+  useEffect(() => {
+    const newDocs = [...docs];
+    const results = newDocs.filter((doc) =>
+      doc.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setSearchResults(results);
+  }, [searchTerm]);
+
+  const sortAllDocs = () => {};
   const toggleFav = (id) => {
     let updatedDocs = [...docs];
     const docIndex = docs.findIndex((d) => d._id === id);
@@ -52,6 +83,7 @@ const Main = ({ showInfo, theDocs }) => {
   }
   return (
     <div className={classes.MainWrapper}>
+      {(progress || loading) && <Progress />}
       {/* Docs Title */}
       <div
         className={clsx(
@@ -69,6 +101,7 @@ const Main = ({ showInfo, theDocs }) => {
         </div>
       </div>
       {/* Upload Section */}
+
       <Upload uploadFileHandler={uploadFileHandler} setError={setError} />
       {/* Main Docs */}
 
@@ -88,14 +121,23 @@ const Main = ({ showInfo, theDocs }) => {
             <Alert danger={true} message={error} showAlert={setError} />
           )}
           {/* Search */}
-          <Search />
+          <Search searchedDocs={searchDocs} sortAllDocs={sortAllDocs} />
           {/* Favourites */}
           <Favourites
             theDocs={docs}
             toggleFav={toggleFav}
             showInfo={showInfo}
           />
-          <AllDocs theDocs={docs} toggleFav={toggleFav} showInfo={showInfo} />
+
+          {searchTerm ? (
+            <AllDocs
+              theDocs={searchResults}
+              toggleFav={toggleFav}
+              showInfo={showInfo}
+            />
+          ) : (
+            <AllDocs theDocs={docs} toggleFav={toggleFav} showInfo={showInfo} />
+          )}
         </div>
       </div>
     </div>

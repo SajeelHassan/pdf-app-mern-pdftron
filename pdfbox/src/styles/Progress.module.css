@@ -1,0 +1,11 @@
+.spinner {
+  position: absolute;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 1.5rem;
+  /* background-color: green; */
+  width: 100%;
+}
+.spinner > img {
+  width: 80px;
+}

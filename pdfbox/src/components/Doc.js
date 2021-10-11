@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import clsx from "clsx";
 import classes from "../styles/Doc.module.css";
 import { useHistory } from "react-router";
@@ -8,6 +8,7 @@ const Doc = ({
   name,
   size,
   created,
+  modified,
   filetype,
   cloudId,
   id,
@@ -17,6 +18,8 @@ const Doc = ({
   showInfo,
 }) => {
   const { isDarkMode } = useContext(ThemeContext);
+  const [isActive, setIsActive] = useState(false);
+
   const history = useHistory();
 
   // const router = useRouter();
@@ -27,6 +30,7 @@ const Doc = ({
     toggleFav(id);
   };
   const showContent = () => {
+    setIsActive(true);
     showInfo({
       id,
       name,
@@ -35,6 +39,8 @@ const Doc = ({
       size,
       filetype,
       created,
+      modified,
+      acronym,
     });
   };
   const showPdf = () => {
@@ -42,7 +48,11 @@ const Doc = ({
   };
   return (
     <div
-      className={clsx(classes.doc, isDarkMode && classes.docDark)}
+      className={clsx(
+        classes.doc,
+        isDarkMode && classes.docDark,
+        isActive && classes.activeDoc
+      )}
       onClick={showContent}
     >
       <div className={classes.docInfo}>
@@ -61,7 +71,7 @@ const Doc = ({
             )}
             onClick={showPdf}
           >
-            {name}
+            {name.substring(0, name.length - 4)}
           </p>
           <p
             className={clsx(

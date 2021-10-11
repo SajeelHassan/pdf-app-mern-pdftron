@@ -20,6 +20,7 @@ const Favourites = ({ theDocs, toggleFav, showInfo }) => {
             name={docs.name}
             size={docs.size}
             created={docs.created}
+            modified={docs.modified}
             filetype={docs.filetype}
             fav={docs.fav}
             color={docs.color}
