@@ -4,7 +4,7 @@ import clsx from "clsx";
 import classes from "../styles/Header.module.css";
 import { useHistory } from "react-router";
 import AuthContext from "../Contexts/AuthContext";
-
+import logo from "../images/logo.svg";
 const Header = () => {
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
   const { logoutHandler } = useContext(AuthContext);
@@ -29,7 +29,7 @@ const Header = () => {
         )}
         onClick={() => window.open("/dashboard", "_self")}
       >
-        PDFBOX
+        <img src={logo} alt="QUASAR" />
       </div>
       <div className={classes.navOptions}>
         <div

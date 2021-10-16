@@ -52,7 +52,7 @@ const PdfTron = () => {
               // from the server or individual changes from other users
 
               if (imported) return;
-
+              //  await annotationManager.exportAnnotCommand();
               saveAnnotation(
                 res.data._id,
                 await annotationManager.exportAnnotations({

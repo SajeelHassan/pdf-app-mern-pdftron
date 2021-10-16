@@ -18,7 +18,10 @@
   background-color: #0b111b;
   border-bottom: 1px solid #171d26;
 }
-.logo {
+.logo > img {
+  width: 140px;
+}
+/* .logo {
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
   font-weight: 900;
   font-size: 1.75rem;
@@ -31,7 +34,7 @@
 }
 .logoDark {
   color: #ffffff;
-}
+} */
 .navOptions {
   display: flex;
   justify-content: space-between;

@@ -3,6 +3,7 @@ import styles from "../styles/Login.module.css";
 import Alert from "./Alert";
 import AuthContext from "../Contexts/AuthContext";
 import { useHistory } from "react-router-dom";
+import logo from "../images/logo.svg";
 
 const Login = () => {
   const emailRef = useRef();
@@ -68,7 +69,9 @@ const Login = () => {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <div className={styles.logo}>PDFBOX</div>
+        <div className={styles.logo}>
+          <img src={logo} alt="QUASAR" />
+        </div>
         {error && <Alert message={error} danger={true} showAlert={setError} />}
         {success && (
           <Alert message={success} danger={false} showAlert={setSuccess} />

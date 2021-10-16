@@ -12,7 +12,7 @@ import axios from "axios";
 
 const Main = ({ showInfo, theDocs }) => {
   const [progress, setProgress] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [docs, setDocs] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");

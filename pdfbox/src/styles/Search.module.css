@@ -18,11 +18,10 @@
   padding: 12px;
   width: 100%;
 }
-.searchInputDark{
+.searchInputDark {
   border: 1px solid #000000;
-
-  background-color: #0B111B;
-
+  color: white;
+  background-color: #0b111b;
 }
 .searchInput::placeholder {
   opacity: 0.7;
@@ -38,8 +37,8 @@
   color: #0266c8;
   cursor: pointer;
 }
-.searchIconDark{
-  color:#5CA3FF;
+.searchIconDark {
+  color: #5ca3ff;
 }
 .searchIcon::before {
   font-family: Objective !important;
@@ -57,13 +56,12 @@
   color: #0266c8;
   font-size: 1rem;
 }
-.sorterDark::before{
-  color:#5CA3FF;
+.sorterDark::before {
+  color: #5ca3ff;
 }
 
-@media(max-width:470px){
-  .sorter{
+@media (max-width: 470px) {
+  .sorter {
     display: none;
   }
-  
 }

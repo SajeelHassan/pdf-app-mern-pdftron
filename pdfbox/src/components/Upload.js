@@ -38,6 +38,22 @@ const Upload = ({ uploadFileHandler, setError }) => {
         isDarkMode && classes.uploadSectionDark
       )}
     >
+      <div className={classes.createDocumentWrapper}>
+        <button
+          className={clsx(
+            classes.createBtn,
+            isDarkMode && classes.createBtnDark
+          )}
+        >
+          <span
+            className={clsx(
+              classes.createBtnIcon,
+              isDarkMode && classes.createBtnIconDark
+            )}
+          />
+          <p>Create document</p>
+        </button>
+      </div>
       <div className={classes.uploadWrapper}>
         <input
           type="file"
@@ -62,9 +78,38 @@ const Upload = ({ uploadFileHandler, setError }) => {
           <p>Upload new</p>
         </label>
       </div>
-      <span
-        className={clsx(classes.dots, isDarkMode && classes.dotsDark)}
-      ></span>
+      <div className={classes.createFolderWrapper}>
+        <button
+          className={clsx(
+            classes.createFolder,
+            isDarkMode && classes.createFolderDark
+          )}
+        >
+          <span
+            className={clsx(
+              classes.createFolderIcon,
+              isDarkMode && classes.createFolderIconDark
+            )}
+          />
+          <p>Create Folder</p>
+        </button>
+      </div>
+      <div className={classes.deleteBtnWrapper}>
+        <button
+          className={clsx(
+            classes.deleteBtn,
+            isDarkMode && classes.deleteBtnDark
+          )}
+        >
+          <span
+            className={clsx(
+              classes.deleteBtnIcon,
+              isDarkMode && classes.deleteBtnIconDark
+            )}
+          />
+          <p>Delete</p>
+        </button>
+      </div>
     </div>
   );
 };

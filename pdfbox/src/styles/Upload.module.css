@@ -1,48 +1,113 @@
 .uploadSection {
-  /* background-color: red; */
   padding: 0.75rem 3rem;
   display: flex;
   align-items: center;
+  font-family: Noto Sans;
 }
 .label {
   display: inline-block;
 }
 
-.uploadButton {
-  width: 147px;
+.uploadButton,
+.createFolder,
+.deleteBtn {
+  font-weight: bold;
+  font-size: 1rem;
+  width: 143px;
   height: 44px;
   border: none;
-  color: white;
-  background-color: #0266c8;
-  padding: 0.375rem 0.875rem 0.375rem 0.375rem;
-  border-radius: 1.75rem;
+  color: #0266c8;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  margin-left: 24px;
+  background-color: transparent;
 }
-.uploadButtonDark{
-  color: #0B111B;
-  background-color: #5CA3FF;
+.createFolder {
+  width: 156px;
+}
+.deleteBtn {
+  width: 101px;
+}
+.uploadButtonDark,
+.createFolderDark {
+  color: #5ca3ff;
 }
 .uploadButton > p {
   font-size: 1rem;
   font-weight: bold;
 }
-.uploadIcon {
+.createBtn {
+  font-size: 1rem;
+  font-weight: bold;
+  width: 187px;
+  height: 44px;
+  border: none;
+  color: white;
+  background-color: #0266c8;
+  border-radius: 1.75rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.createBtnDark {
+  color: #0b111b;
+  background-color: #5ca3ff;
+}
+.createBtn > p {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.uploadIcon,
+.createBtnIcon,
+.createFolderIcon,
+.deleteBtnIcon {
   width: 32px;
   text-align: center;
 }
-.uploadIcon::before {
+.uploadIcon::before,
+.createBtnIcon::before,
+.createFolderIcon::before,
+.deleteBtnIcon::before {
   font-family: Objective !important;
   content: "\f552";
   font-size: 0.875rem;
   font-weight: 500;
   text-align: center;
-  color:#ffffff;
+  color: #0266c8;
 }
-.uploadIconDark::before{
-  color:#0B111B;
+.createBtnIcon::before {
+  content: "\f415";
+}
+.createFolderIcon::before {
+  content: "\f25a";
+}
+.createBtnIcon::before {
+  color: white;
+}
+.deleteBtn {
+  color: #bd2841;
+}
+.deleteBtnDark {
+  color: #ff7381;
+}
+.deleteBtnIcon::before {
+  content: "\f1c0";
+  color: #bd2841;
+}
+.deleteBtnIconDark::before {
+  content: "\f1c0";
+  color: #ff7381;
+}
+.uploadIconDark::before,
+.createFolderIconDark::before {
+  color: #5ca3ff;
+}
+.createBtnDark {
+  color: #0b111b;
+}
+.createBtnIconDark::before {
+  color: #0b111b;
 }
 .dots {
   width: 2rem;
@@ -56,54 +121,44 @@
   content: "\f1d8";
   color: #0266c8;
 }
-.dotsDark::before{
-  color:#5CA3FF;
+.dotsDark::before {
+  color: #5ca3ff;
 }
 
- @media(max-width:630px){
-  .uploadSection{
+@media (max-width: 630px) {
+  .uploadSection {
     padding: 0.75rem 1.125rem;
-
-
   }
-  
 }
-@media(max-width:470px){
-  .dots{
+@media (max-width: 470px) {
+  .dots {
     display: none;
   }
-  .uploadSection{
+  .uploadSection {
     position: fixed;
     bottom: 0;
     background-color: #ffffff;
-    outline:none;
-    width:100%;
-    box-shadow:
-  0px 0px 2.6px rgba(0, 0, 0, 0.056),
-  0px 0px 6.7px rgba(0, 0, 0, 0.08),
-  0px 0px 13.6px rgba(0, 0, 0, 0.1),
-  0px 0px 28.1px rgba(0, 0, 0, 0.124),
-  0px 0px 77px rgba(0, 0, 0, 0.18)
-;
+    outline: none;
+    width: 100%;
+    box-shadow: 0px 0px 2.6px rgba(0, 0, 0, 0.056),
+      0px 0px 6.7px rgba(0, 0, 0, 0.08), 0px 0px 13.6px rgba(0, 0, 0, 0.1),
+      0px 0px 28.1px rgba(0, 0, 0, 0.124), 0px 0px 77px rgba(0, 0, 0, 0.18);
   }
-  .uploadSection{
+  .uploadSection {
     display: flex;
     justify-content: flex-end;
     width: 100%;
-    height: 70px;;
-    
+    height: 70px;
   }
-  .uploadWrapper{
-    border:1px solid grey;
-  border-radius: 1.75rem;
+  .uploadWrapper {
+    border: 1px solid grey;
+    border-radius: 1.75rem;
     margin-bottom: 53px;
   }
-  .uploadSectionDark{
-    background-color: #171D26;
-
+  .uploadSectionDark {
+    background-color: #171d26;
   }
-  .uploadWrapperDark{
-    border:1px solid #0B111B;
-
+  .uploadWrapperDark {
+    border: 1px solid #0b111b;
   }
 }
