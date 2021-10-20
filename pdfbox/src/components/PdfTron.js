@@ -10,7 +10,7 @@ const PdfTron = () => {
   const viewer = useRef(null);
   const saveAnnotation = async (id, annot) => {
     await axios
-      .put("http://localhost:5000/doc/updatePdf", {
+      .post("http://localhost:5000/doc/updatePdf", {
         fileId: id,
         annotString: annot,
         modifiedDate: new Date(),
@@ -41,6 +41,7 @@ const PdfTron = () => {
             ? instance.UI.setTheme("dark")
             : instance.UI.setTheme("light");
           const { documentViewer, annotationManager } = instance.Core;
+
           documentViewer.addEventListener("documentLoaded", () => {
             annotationManager.importAnnotations(res.data.annot);
           });

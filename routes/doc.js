@@ -17,6 +17,7 @@ router.post("/uploadfile", upload.single("uploading"), async (req, res) => {
       fav: false,
       pdfFile: result.secure_url,
       cloudId: result.public_id,
+      annot: "",
       modified: body.created,
     });
     // Save user
@@ -52,21 +53,34 @@ router.get("/", async (req, res) => {
 //   }
 // });
 
-router.put("/updatePdf", async (req, res) => {
+router.post("/updatePdf", async (req, res) => {
   // console.log(req.body.fileId);
   try {
-    const doc = await Doc.findByIdAndUpdate(
-      req.body.fileId,
-      { annot: req.body.annotString, modified: req.body.modifiedDate },
-      (err, response) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log("Updated User : ", doc);
-        }
-      }
-    );
-    res.json(doc);
+    const doc = await Doc.findById(req.body.fileId);
+    await doc.updateOne({
+      annot: req.body.annotString,
+      modified: req.body.modifiedDate,
+    });
+    // const doc = await Doc.findOneAndUpdate(
+    //   { _id: req.body.fileId },
+    //   { annot: req.body.annotString, modified: req.body.modifiedDate },
+    //   { new: true },
+    //   (err, response) => {
+    //     if (err) {
+    //       console.log(err);
+    //     } else {
+    //       console.log("Updated User : ", doc);
+    //     }
+    //   }
+    // );
+    // const doc = await Doc.findoneAndUpdate(
+    //   { _id: req.body.fileId },
+    //   { annot: req.body.annotString, modified: req.body.modifiedDate }
+    // );
+    // await res.json(doc);
+    // await doc.save();
+    // console.log(doc);
+    res.status(200).json({ data: doc });
   } catch (err) {
     console.log(err);
   }

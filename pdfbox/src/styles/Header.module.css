@@ -18,6 +18,9 @@
   background-color: #0b111b;
   border-bottom: 1px solid #171d26;
 }
+.logo {
+  cursor: pointer;
+}
 .logo > img {
   width: 140px;
 }
