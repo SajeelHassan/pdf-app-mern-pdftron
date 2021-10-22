@@ -53,6 +53,17 @@ router.get("/", async (req, res) => {
 //   }
 // });
 
+router.post("/toggleFav", async (req, res) => {
+  try {
+    const doc = await Doc.findById(req.body.fileId);
+    await doc.updateOne({
+      fav: req.body.favourite,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 router.post("/updatePdf", async (req, res) => {
   // console.log(req.body.fileId);
   try {
@@ -61,26 +72,22 @@ router.post("/updatePdf", async (req, res) => {
       annot: req.body.annotString,
       modified: req.body.modifiedDate,
     });
-    // const doc = await Doc.findOneAndUpdate(
-    //   { _id: req.body.fileId },
-    //   { annot: req.body.annotString, modified: req.body.modifiedDate },
-    //   { new: true },
-    //   (err, response) => {
-    //     if (err) {
-    //       console.log(err);
-    //     } else {
-    //       console.log("Updated User : ", doc);
-    //     }
-    //   }
-    // );
-    // const doc = await Doc.findoneAndUpdate(
-    //   { _id: req.body.fileId },
-    //   { annot: req.body.annotString, modified: req.body.modifiedDate }
-    // );
-    // await res.json(doc);
-    // await doc.save();
-    // console.log(doc);
+
     res.status(200).json({ data: doc });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    // Find doc by id
+    let doc = await Doc.findById(req.params.id);
+    // Delete pdf from cloudinary
+    await cloudinary.uploader.destroy(doc.cloudId);
+    // Delete doc from db
+    await doc.remove();
+    res.json(doc);
   } catch (err) {
     console.log(err);
   }

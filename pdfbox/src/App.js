@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Redirect, Route } from "react-router";
 import Login from "./components/Login";
 import Home from "./pages/dashboard";
+import Sun from "./pages/suneditor";
 import PdfTron from "./components/PdfTron";
 import Header from "./components/Header";
 import ThemeContext from "./Contexts/Context";
@@ -49,6 +50,9 @@ function App() {
         </Route>
         <Route path="/dashboard" exact>
           {isLogin ? <Home /> : <Redirect to="/" />}
+        </Route>
+        <Route path="/suneditor/:id" exact>
+          {isLogin ? <Sun /> : <Redirect to="/" />}
         </Route>
         <Route path="/view/:id" exact>
           {isLogin ? (

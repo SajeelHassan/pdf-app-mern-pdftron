@@ -7,7 +7,9 @@
 .label {
   display: inline-block;
 }
-
+.createDocumentWrapper {
+  cursor: pointer;
+}
 .uploadButton,
 .createFolder,
 .deleteBtn {

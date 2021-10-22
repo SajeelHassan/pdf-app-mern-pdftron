@@ -8,11 +8,14 @@ import AllDocs from "./AllDocs";
 import Alert from "./Alert";
 import Progress from "./Progress";
 import ThemeContext from "../Contexts/Context";
-import axios from "axios";
 
-const Main = ({ showInfo, theDocs }) => {
+import axios from "axios";
+import Modal from "./Modal";
+
+const Main = ({ showInfo }) => {
   const [progress, setProgress] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
   const [docs, setDocs] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -32,9 +35,9 @@ const Main = ({ showInfo, theDocs }) => {
     }
   };
 
-  fetchDocs();
-
-  // useEffect(() => {}, [docs]);
+  useEffect(() => {
+    fetchDocs();
+  }, [docs]);
   const searchDocs = (str) => {
     if (str.length > 0) {
       setSearchTerm(str);
@@ -53,11 +56,20 @@ const Main = ({ showInfo, theDocs }) => {
   }, [searchTerm]);
 
   const sortAllDocs = () => {};
-  const toggleFav = (id) => {
-    let updatedDocs = [...docs];
-    const docIndex = docs.findIndex((d) => d._id === id);
-    updatedDocs[docIndex].fav = !updatedDocs[docIndex].fav;
-    setDocs(updatedDocs);
+  const selectDoc = () => {};
+  const toggleFav = async (id, fav) => {
+    // let updatedDocs = [...docs];
+    // const docIndex = docs.findIndex((d) => d._id === id);
+    // updatedDocs[docIndex].fav = !updatedDocs[docIndex].fav;
+    // setDocs(updatedDocs);
+    await axios
+      .post("http://localhost:5000/doc/toggleFav", {
+        fileId: id,
+        favourite: !fav,
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   async function uploadFileHandler(formData) {
@@ -81,8 +93,31 @@ const Main = ({ showInfo, theDocs }) => {
       window.location.reload();
     }
   }
+  const deleteFile = async (id) => {
+    try {
+      setLoading(true);
+      const res = await fetch(`http://localhost:5000/doc/delete/${id}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        const updatedDocs = docs.filter((doc) => doc._id !== id);
+        setDocs(updatedDocs);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+  const showCreateDoc = () => {
+    setShowModal(true);
+  };
+  // const hideModal = () => {
+  //   setShowModal(false);
+  // };
   return (
     <div className={classes.MainWrapper}>
+      {showModal && <Modal hideModal={setShowModal} />}
       {(progress || loading) && <Progress />}
       {/* Docs Title */}
       <div
@@ -102,7 +137,12 @@ const Main = ({ showInfo, theDocs }) => {
       </div>
       {/* Upload Section */}
 
-      <Upload uploadFileHandler={uploadFileHandler} setError={setError} />
+      <Upload
+        uploadFileHandler={uploadFileHandler}
+        setError={setError}
+        deleteFile={deleteFile}
+        showCreateDoc={showCreateDoc}
+      />
       {/* Main Docs */}
 
       <div
@@ -127,6 +167,7 @@ const Main = ({ showInfo, theDocs }) => {
             theDocs={docs}
             toggleFav={toggleFav}
             showInfo={showInfo}
+            selectDoc={selectDoc}
           />
 
           {searchTerm ? (
@@ -134,9 +175,15 @@ const Main = ({ showInfo, theDocs }) => {
               theDocs={searchResults}
               toggleFav={toggleFav}
               showInfo={showInfo}
+              selectDoc={selectDoc}
             />
           ) : (
-            <AllDocs theDocs={docs} toggleFav={toggleFav} showInfo={showInfo} />
+            <AllDocs
+              theDocs={docs}
+              toggleFav={toggleFav}
+              showInfo={showInfo}
+              selectDoc={selectDoc}
+            />
           )}
         </div>
       </div>

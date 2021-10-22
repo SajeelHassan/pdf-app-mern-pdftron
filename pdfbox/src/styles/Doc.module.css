@@ -7,19 +7,18 @@
   border-top: 1px solid #f5f5f5;
   cursor: pointer;
   background-color: #ffffff;
-
 }
-.doc:first-child{
+.doc:first-child {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
-.doc:last-child{
-   border-bottom-left-radius: 8px;
+.doc:last-child {
+  border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
-.docDark{
-  border-top:1px solid #171D26;
-  background-color: #0B111B;
+.docDark {
+  border-top: 1px solid #171d26;
+  background-color: #0b111b;
 }
 .doc:first-child {
   border-color: none;
@@ -41,9 +40,17 @@
 .doc:hover {
   background-color: #e0f3fe;
 }
-.docDark:hover{
+.docDark:hover {
   background-color: #000000;
-
+}
+.doc.active .marker {
+  background-color: #0266c8;
+}
+.doc.active {
+  background-color: #e0f3fe;
+}
+.docDark.active {
+  background-color: #000000;
 }
 .docOptions {
   display: flex;
@@ -59,7 +66,7 @@
   color: #0266c8;
 }
 .docOptionsDark > span {
-  color: #5CA3FF;
+  color: #5ca3ff;
 }
 .star {
   margin-right: 1rem;
@@ -87,9 +94,8 @@
   justify-content: center;
   align-items: center;
 }
-.docIconDark{
-  color: #0B111B;
-
+.docIconDark {
+  color: #0b111b;
 }
 .docDetails {
   margin-left: 1.5rem;
@@ -99,10 +105,10 @@
   font-weight: 600;
   font-size: 1rem;
   line-height: 1.25rem;
-  Padding-bottom: 4px
+  padding-bottom: 4px;
 }
-.docTitleDark{
-  color:#5CA3FF;
+.docTitleDark {
+  color: #5ca3ff;
 }
 .docTitle:hover {
   text-decoration: underline;
@@ -114,6 +120,6 @@
   line-height: 18px;
   font-style: normal;
 }
-.docOwnerDark{
-  color:#ffffff;
+.docOwnerDark {
+  color: #ffffff;
 }

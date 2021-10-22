@@ -15,6 +15,9 @@ const Header = () => {
   const logout = () => {
     logoutHandler();
   };
+  const toHome = () => {
+    history.replace("/dashboard");
+  };
   return (
     <div
       className={clsx(
@@ -27,7 +30,7 @@ const Header = () => {
           classes.logo,
           isDarkMode ? classes.logoDark : classes.logoLight
         )}
-        onClick={() => window.open("/dashboard", "_self")}
+        onClick={toHome}
       >
         <img src={logo} alt="QUASAR" />
       </div>

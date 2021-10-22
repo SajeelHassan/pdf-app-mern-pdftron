@@ -3,6 +3,7 @@ import clsx from "clsx";
 import classes from "../styles/Doc.module.css";
 import { useHistory } from "react-router";
 import ThemeContext from "../Contexts/Context";
+import ActiveContext from "../Contexts/ActiveContext";
 
 const Doc = ({
   name,
@@ -16,10 +17,11 @@ const Doc = ({
   color,
   toggleFav,
   showInfo,
+  wasActive,
 }) => {
   const { isDarkMode } = useContext(ThemeContext);
   const [isActive, setIsActive] = useState(false);
-
+  const { selectActiveDoc } = useContext(ActiveContext);
   const history = useHistory();
 
   // const router = useRouter();
@@ -27,10 +29,12 @@ const Doc = ({
   acronym = acronym.slice(0, 2).join("");
   acronym = acronym.toUpperCase();
   const toggleFavourite = () => {
-    toggleFav(id);
+    toggleFav(id, fav);
   };
-  const showContent = () => {
-    setIsActive(true);
+  const showContent = (docId) => {
+    selectActiveDoc(docId);
+    // setIsActive(true);
+
     showInfo({
       id,
       name,
@@ -46,14 +50,15 @@ const Doc = ({
   const showPdf = () => {
     history.push(`/view/${id}`);
   };
+
   return (
     <div
       className={clsx(
         classes.doc,
         isDarkMode && classes.docDark,
-        isActive && classes.activeDoc
+        wasActive && classes.active
       )}
-      onClick={showContent}
+      onClick={() => showContent(id)}
     >
       <div className={classes.docInfo}>
         <div className={classes.marker} />

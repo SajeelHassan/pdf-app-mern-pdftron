@@ -2,6 +2,7 @@ import clsx from "clsx";
 import React, { useContext } from "react";
 import classes from "../styles/Upload.module.css";
 import ThemeContext from "../Contexts/Context";
+import ActiveContext from "../Contexts/ActiveContext";
 
 const colors = [
   "#8089FF",
@@ -13,8 +14,9 @@ const colors = [
   "#00893E",
   "#5558AF",
 ];
-const Upload = ({ uploadFileHandler, setError }) => {
+const Upload = ({ uploadFileHandler, setError, deleteFile, showCreateDoc }) => {
   const { isDarkMode } = useContext(ThemeContext);
+  const { activeId } = useContext(ActiveContext);
   const uploadDoc = (e) => {
     const formData = new FormData();
     const file = e.target.files[0];
@@ -31,6 +33,11 @@ const Upload = ({ uploadFileHandler, setError }) => {
     formData.append("color", colors[Math.floor(Math.random() * colors.length)]);
     uploadFileHandler(formData);
   };
+  const deleteDoc = () => {
+    if (activeId) {
+      deleteFile(activeId);
+    }
+  };
   return (
     <div
       className={clsx(
@@ -38,7 +45,7 @@ const Upload = ({ uploadFileHandler, setError }) => {
         isDarkMode && classes.uploadSectionDark
       )}
     >
-      <div className={classes.createDocumentWrapper}>
+      <div className={classes.createDocumentWrapper} onClick={showCreateDoc}>
         <button
           className={clsx(
             classes.createBtn,
@@ -96,6 +103,7 @@ const Upload = ({ uploadFileHandler, setError }) => {
       </div>
       <div className={classes.deleteBtnWrapper}>
         <button
+          onClick={deleteDoc}
           className={clsx(
             classes.deleteBtn,
             isDarkMode && classes.deleteBtnDark

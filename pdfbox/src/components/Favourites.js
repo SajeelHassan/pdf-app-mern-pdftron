@@ -3,10 +3,13 @@ import classes from "../styles/Favourites.module.css";
 import Doc from "./Doc";
 import clsx from "clsx";
 import ThemeContext from "../Contexts/Context";
+import ActiveContext from "../Contexts/ActiveContext";
 
-const Favourites = ({ theDocs, toggleFav, showInfo }) => {
+const Favourites = ({ theDocs, toggleFav, showInfo, selectDoc }) => {
   const { isDarkMode } = useContext(ThemeContext);
   const favs = theDocs.filter((doc) => doc.fav);
+  const { activeId } = useContext(ActiveContext);
+
   return (
     <div className={classes.wrapper}>
       <div className={clsx(classes.title, isDarkMode && classes.titleDark)}>
@@ -27,6 +30,8 @@ const Favourites = ({ theDocs, toggleFav, showInfo }) => {
             cloudId={docs.cloudId}
             toggleFav={toggleFav}
             showInfo={showInfo}
+            selectDoc={selectDoc}
+            wasActive={activeId === docs._id}
           />
         ))}
         {favs.length === 0 && (
