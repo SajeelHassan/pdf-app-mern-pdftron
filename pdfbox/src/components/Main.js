@@ -14,7 +14,7 @@ import FolModal from "./FolModal";
 
 const Main = ({ showInfo }) => {
   const [progress, setProgress] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [showFolModal, setShowFolModal] = useState(false);
   const [error, setError] = useState("");
@@ -36,9 +36,9 @@ const Main = ({ showInfo }) => {
     }
   };
 
-  // useEffect(() => {
-  //   fetchDocs();
-  // }, [docs]);
+  useEffect(() => {
+    fetchDocs();
+  }, [docs]);
   const searchDocs = (str) => {
     if (str.length > 0) {
       setSearchTerm(str);
