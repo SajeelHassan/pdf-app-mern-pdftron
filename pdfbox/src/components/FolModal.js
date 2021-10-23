@@ -6,7 +6,7 @@ const ModalOverlay = ({ hideModal, confirmDoc }) => {
     <div className={classes.wrapper}>
       <div className={classes.content}>
         <div className={classes.titleAndClose}>
-          <span className={classes.title}>New Document</span>
+          <span className={classes.title}>New Folder</span>
           <span
             className={classes.closeIcon}
             onClick={() => hideModal(false)}
@@ -35,7 +35,7 @@ const ModalOverlay = ({ hideModal, confirmDoc }) => {
   );
 };
 
-const Modal = ({ hideModal, confirmDoc }) => {
+const FolModal = ({ hideModal, confirmDoc }) => {
   return (
     <>
       {ReactDOM.createPortal(
@@ -46,4 +46,4 @@ const Modal = ({ hideModal, confirmDoc }) => {
   );
 };
 
-export default Modal;
+export default FolModal;

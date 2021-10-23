@@ -14,7 +14,13 @@ const colors = [
   "#00893E",
   "#5558AF",
 ];
-const Upload = ({ uploadFileHandler, setError, deleteFile, showCreateDoc }) => {
+const Upload = ({
+  uploadFileHandler,
+  setError,
+  deleteFile,
+  showCreateDoc,
+  showCreateFol,
+}) => {
   const { isDarkMode } = useContext(ThemeContext);
   const { activeId } = useContext(ActiveContext);
   const uploadDoc = (e) => {
@@ -87,6 +93,7 @@ const Upload = ({ uploadFileHandler, setError, deleteFile, showCreateDoc }) => {
       </div>
       <div className={classes.createFolderWrapper}>
         <button
+          onClick={showCreateFol}
           className={clsx(
             classes.createFolder,
             isDarkMode && classes.createFolderDark

@@ -8,14 +8,15 @@ import AllDocs from "./AllDocs";
 import Alert from "./Alert";
 import Progress from "./Progress";
 import ThemeContext from "../Contexts/Context";
-
 import axios from "axios";
 import Modal from "./Modal";
+import FolModal from "./FolModal";
 
 const Main = ({ showInfo }) => {
   const [progress, setProgress] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showFolModal, setShowFolModal] = useState(false);
   const [error, setError] = useState("");
   const [docs, setDocs] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -35,9 +36,9 @@ const Main = ({ showInfo }) => {
     }
   };
 
-  useEffect(() => {
-    fetchDocs();
-  }, [docs]);
+  // useEffect(() => {
+  //   fetchDocs();
+  // }, [docs]);
   const searchDocs = (str) => {
     if (str.length > 0) {
       setSearchTerm(str);
@@ -112,12 +113,16 @@ const Main = ({ showInfo }) => {
   const showCreateDoc = () => {
     setShowModal(true);
   };
+  const showCreateFol = () => {
+    setShowFolModal(true);
+  };
   // const hideModal = () => {
   //   setShowModal(false);
   // };
   return (
     <div className={classes.MainWrapper}>
       {showModal && <Modal hideModal={setShowModal} />}
+      {showFolModal && <FolModal hideModal={setShowFolModal} />}
       {(progress || loading) && <Progress />}
       {/* Docs Title */}
       <div
@@ -142,6 +147,7 @@ const Main = ({ showInfo }) => {
         setError={setError}
         deleteFile={deleteFile}
         showCreateDoc={showCreateDoc}
+        showCreateFol={showCreateFol}
       />
       {/* Main Docs */}
 
