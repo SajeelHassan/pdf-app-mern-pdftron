@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useRef } from "react";
 import ReactDOM from "react-dom";
 import classes from "../styles/Modal.module.css";
-const ModalOverlay = ({ hideModal, confirmDoc }) => {
+const ModalOverlay = ({ hideModal, createFolderHandler }) => {
+  const inputRef = useRef("");
+
+  const confirmFolder = () => {
+    if (inputRef.current.value) {
+      createFolderHandler(inputRef.current.value);
+      hideModal(false);
+    }
+  };
   return (
     <div className={classes.wrapper}>
       <div className={classes.content}>
@@ -16,7 +24,7 @@ const ModalOverlay = ({ hideModal, confirmDoc }) => {
           <label for="newDocName" className={classes.label}>
             Name
           </label>
-          <input type="text" className={classes.input}></input>
+          <input ref={inputRef} type="text" className={classes.input}></input>
           <div className={classes.formControls}>
             <button
               className={classes.cancelBtn}
@@ -24,7 +32,7 @@ const ModalOverlay = ({ hideModal, confirmDoc }) => {
             >
               Cancel
             </button>
-            <button className={classes.confirmBtn}>
+            <button className={classes.confirmBtn} onClick={confirmFolder}>
               <span className={classes.tickIcon} />
               <p>Confirm</p>
             </button>
@@ -35,11 +43,15 @@ const ModalOverlay = ({ hideModal, confirmDoc }) => {
   );
 };
 
-const FolModal = ({ hideModal, confirmDoc }) => {
+const FolModal = ({ hideModal, confirmDoc, createFolderHandler }) => {
   return (
     <>
       {ReactDOM.createPortal(
-        <ModalOverlay hideModal={hideModal} confirmDoc={confirmDoc} />,
+        <ModalOverlay
+          hideModal={hideModal}
+          confirmDoc={confirmDoc}
+          createFolderHandler={createFolderHandler}
+        />,
         document.getElementById("backdrop-root")
       )}
     </>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Redirect, Route } from "react-router";
+import { Redirect, Route, Switch } from "react-router";
 import Login from "./components/Login";
 import Home from "./pages/dashboard";
 import Sun from "./pages/suneditor";
@@ -45,25 +45,27 @@ function App() {
       <ThemeContext.Provider
         value={{ isDarkMode: isDarkMode, toggleTheme: toggleThemeHandler }}
       >
-        <Route path="/" exact>
-          {isLogin ? <Redirect to="/dashboard" /> : <Login />}
-        </Route>
-        <Route path="/dashboard" exact>
-          {isLogin ? <Home /> : <Redirect to="/" />}
-        </Route>
-        <Route path="/suneditor/:id" exact>
-          {isLogin ? <Sun /> : <Redirect to="/" />}
-        </Route>
-        <Route path="/view/:id" exact>
-          {isLogin ? (
-            <>
-              <Header />
-              <PdfTron />
-            </>
-          ) : (
-            <Redirect to="/" />
-          )}
-        </Route>
+        <Switch>
+          <Route path="/" exact>
+            {isLogin ? <Redirect to="/dashboard" /> : <Login />}
+          </Route>
+          <Route path="/dashboard" exact>
+            {isLogin ? <Home /> : <Redirect to="/" />}
+          </Route>
+          <Route path="/suneditor/:id" exact>
+            {<Sun />}
+          </Route>
+          <Route path="/view/:id" exact>
+            {isLogin ? (
+              <>
+                <Header />
+                <PdfTron />
+              </>
+            ) : (
+              <Redirect to="/" />
+            )}
+          </Route>
+        </Switch>
       </ThemeContext.Provider>
     </AuthContext.Provider>
   );

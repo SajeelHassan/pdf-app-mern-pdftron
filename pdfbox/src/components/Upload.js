@@ -22,7 +22,7 @@ const Upload = ({
   showCreateFol,
 }) => {
   const { isDarkMode } = useContext(ThemeContext);
-  const { activeId } = useContext(ActiveContext);
+  const { activeId, selectActiveDoc } = useContext(ActiveContext);
   const uploadDoc = (e) => {
     const formData = new FormData();
     const file = e.target.files[0];
@@ -42,6 +42,7 @@ const Upload = ({
   const deleteDoc = () => {
     if (activeId) {
       deleteFile(activeId);
+      selectActiveDoc("");
     }
   };
   return (

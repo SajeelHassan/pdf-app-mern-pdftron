@@ -1,26 +1,21 @@
 import React, { useContext, useState } from "react";
 import clsx from "clsx";
-import classes from "../styles/Doc.module.css";
+import classes from "../styles/Folder.module.css";
 import { useHistory } from "react-router";
 import ThemeContext from "../Contexts/Context";
 import ActiveContext from "../Contexts/ActiveContext";
 
-const Doc = ({
+const Folder = ({
+  id,
   name,
-  size,
   created,
   modified,
-  filetype,
-  cloudId,
-  pdfFile,
-  id,
+  type,
   fav,
-  color,
   toggleFav,
   showInfo,
+  selectDoc,
   wasActive,
-  thumbA,
-  thumbB,
 }) => {
   const { isDarkMode } = useContext(ThemeContext);
   const [isActive, setIsActive] = useState(false);
@@ -32,30 +27,23 @@ const Doc = ({
   acronym = acronym.slice(0, 2).join("");
   acronym = acronym.toUpperCase();
   const toggleFavourite = () => {
-    toggleFav(id, fav);
+    // toggleFav(id, fav);
   };
   const showContent = (docId) => {
     selectActiveDoc(docId);
-    // setIsActive(true);
-
+    setIsActive(true);
     showInfo({
       id,
       name,
-      color,
       fav,
-      size,
-      filetype: "pdf",
       created,
       modified,
-      thumbA,
-      thumbB,
-      acronym,
-      pdfFile,
+      filetype: type,
     });
   };
-  const showPdf = () => {
-    history.push(`/view/${id}`);
-  };
+  //   const showPdf = () => {
+  //     history.push(`/view/${id}`);
+  //   };
 
   return (
     <div
@@ -70,9 +58,9 @@ const Doc = ({
         <div className={classes.marker} />
         <div
           className={clsx(classes.docIcon, isDarkMode && classes.docIconDark)}
-          style={{ backgroundColor: color }}
+          style={{ backgroundColor: "rgba(255, 193, 68, 1)" }}
         >
-          {acronym}
+          <span className={classes.folderIcon} />
         </div>
         <div className={classes.docDetails}>
           <p
@@ -80,9 +68,9 @@ const Doc = ({
               classes.docTitle,
               isDarkMode && classes.docTitleDark
             )}
-            onClick={showPdf}
+            // onClick={showPdf}
           >
-            {name.substring(0, name.length - 4)}
+            {name}
           </p>
           <p
             className={clsx(
@@ -101,12 +89,12 @@ const Doc = ({
         )}
       >
         <span
-          className={clsx(fav && classes.star, fav || classes.unStar)}
-          onClick={toggleFavourite}
+          className={clsx(classes.unStar)}
+          //   onClick={toggleFavourite}
         />
         <span className={classes.dots} />
       </div>
     </div>
   );
 };
-export default Doc;
+export default Folder;

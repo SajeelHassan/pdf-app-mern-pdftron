@@ -1,0 +1,30 @@
+.title {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  color: #32373f;
+  padding: 20px 0;
+}
+.titleDark {
+  color: #ffffff;
+}
+.main {
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+.mainDark {
+  background-color: #0b111b;
+  border-radius: 8px;
+}
+.nothing {
+  color: #32373f;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+  background-color: #ffffff;
+  border-radius: 8px;
+}
+.nothingDark {
+  color: #ffffff;
+  background-color: #0b111b;
+}

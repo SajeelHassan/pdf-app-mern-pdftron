@@ -24,7 +24,7 @@
 .title {
   font-weight: bold;
   font-size: 1.75rem;
-  line-height: 2.5rem;
+  /* line-height: 40px; */
   margin-left: 1.75rem;
   color: #32373f;
 }
@@ -84,7 +84,28 @@
 .keyDark {
   color: #96a5bd;
 }
-
+.thumbnails {
+  margin-top: 24px;
+  display: flex;
+}
+.thumbnails img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+.thumbnailImage {
+  border-radius: 8px;
+}
+.thumbnailImage:last-child {
+  margin-left: 10px;
+}
+.folderInfoIcon::before {
+  font-family: Objective !important;
+  content: "\f25a";
+  font-size: 1.125rem;
+  font-weight: 500;
+  text-align: center;
+  color: #ffffff;
+}
 @media (max-width: 960px) {
   .wrapper {
     display: none;

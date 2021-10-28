@@ -24,12 +24,15 @@ const AllDocs = ({ theDocs, toggleFav, showInfo }) => {
               size={docs.size}
               created={docs.created}
               modified={docs.modified}
+              pdfFile={docs.pdfFile}
               filetype={docs.filetype}
               fav={docs.fav}
               color={docs.color}
               cloudId={docs.cloudId}
               toggleFav={toggleFav}
               showInfo={showInfo}
+              thumbA={docs.thumbA}
+              thumbB={docs.thumbB}
               wasActive={activeId === docs._id}
             />
           );

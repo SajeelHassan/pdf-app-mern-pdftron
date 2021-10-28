@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import clsx from "clsx";
+import WebViewer from "@pdftron/webviewer";
 import classes from "../styles/Main.module.css";
 import Search from "./Search";
 import Upload from "./Upload";
 import Favourites from "./Favourites";
+import Folders from "./Folders";
 import AllDocs from "./AllDocs";
 import Alert from "./Alert";
 import Progress from "./Progress";
@@ -17,8 +19,11 @@ const Main = ({ showInfo }) => {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [showFolModal, setShowFolModal] = useState(false);
+  const viewer = useRef();
+  const viewerB = useRef();
   const [error, setError] = useState("");
   const [docs, setDocs] = useState([]);
+  const [folders, setFolders] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = React.useState([]);
   const { isDarkMode } = useContext(ThemeContext);
@@ -35,10 +40,22 @@ const Main = ({ showInfo }) => {
       console.log(err);
     }
   };
+  const fetchFolders = async () => {
+    try {
+      await fetch("http://localhost:5000/folder")
+        .then((res) => res.json())
+        .then((fols) => {
+          setFolders(fols.data);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
+    fetchFolders();
     fetchDocs();
-  }, [docs]);
+  }, []);
   const searchDocs = (str) => {
     if (str.length > 0) {
       setSearchTerm(str);
@@ -59,11 +76,11 @@ const Main = ({ showInfo }) => {
   const sortAllDocs = () => {};
   const selectDoc = () => {};
   const toggleFav = async (id, fav) => {
-    // let updatedDocs = [...docs];
-    // const docIndex = docs.findIndex((d) => d._id === id);
-    // updatedDocs[docIndex].fav = !updatedDocs[docIndex].fav;
-    // setDocs(updatedDocs);
-    await axios
+    let updatedDocs = [...docs];
+    const docIndex = docs.findIndex((d) => d._id === id);
+    updatedDocs[docIndex].fav = !updatedDocs[docIndex].fav;
+    setDocs(updatedDocs);
+    const res = await axios
       .post("http://localhost:5000/doc/toggleFav", {
         fileId: id,
         favourite: !fav,
@@ -71,8 +88,10 @@ const Main = ({ showInfo }) => {
       .catch((err) => {
         console.log(err);
       });
+    if (res.status === 200) {
+      // window.location.reload();
+    }
   };
-
   async function uploadFileHandler(formData) {
     setProgress(true);
     const config = {
@@ -90,10 +109,99 @@ const Main = ({ showInfo }) => {
       config
     );
     if (response.status === 200) {
-      setProgress(false);
-      window.location.reload();
+      console.log(response.data.data);
+      await extractAndSaveThumbOne(
+        response.data.data.pdfFile,
+        response.data.data._id
+      );
+
+      // extractAndSaveThumbTwo(response.data.data.pdfFile);
+
+      // window.location.reload();
     }
   }
+  const extractAndSaveThumbTwo = (file) => {
+    WebViewer(
+      {
+        path: "/lib",
+        initialDoc: file,
+      },
+      viewerB.current
+    ).then((instance) => {
+      const { documentViewer } = instance.Core;
+      documentViewer.addEventListener("documentLoaded", () => {
+        const doc = documentViewer.getDocument();
+        const pageNum = 1;
+        doc.loadThumbnailAsync(pageNum, (thumbnail) => {
+          console.log(thumbnail.toDataURL());
+          setProgress(false);
+          if (viewerB.current.children[0]) {
+            viewerB.current.removeChild(viewerB.current.children[0]);
+          }
+        });
+      });
+    });
+  };
+  const extractAndSaveThumbOne = (file, fileID) => {
+    WebViewer(
+      {
+        path: "/lib",
+        initialDoc: file,
+      },
+      viewer.current
+    ).then((instance) => {
+      const { documentViewer } = instance.Core;
+      documentViewer.addEventListener("documentLoaded", () => {
+        const doc = documentViewer.getDocument();
+        const pageNumber = 1;
+        doc.loadCanvasAsync({
+          pageNumber,
+          zoom: 0, // render at twice the resolution
+          drawComplete: async (thumbnail) => {
+            // optionally comment out "drawAnnotations" below to exclude annotations
+            // await instance.Core.documentViewer
+            //   .getAnnotationManager()
+            //   .drawAnnotations(pageNumber, thumbnail);
+            // thumbnail is a HTMLCanvasElement or HTMLImageElement
+            // const netPdf = window.PDFNet;
+
+            saveThumbA(String(thumbnail.toDataURL()), fileID);
+            saveThumbB(String(thumbnail.toDataURL()), fileID);
+            setProgress(false);
+            window.location.reload();
+          },
+        });
+      });
+    });
+  };
+  const saveThumbA = async (thumbnail, id) => {
+    await axios
+      .post("http://localhost:5000/doc/addThumb", {
+        fileId: id,
+        thumbA: thumbnail,
+      })
+      .then((res) => {
+        // console.log(res);
+      })
+
+      .catch((err) => {
+        // console.log(err);
+      });
+  };
+  const saveThumbB = async (thumbnail, id) => {
+    await axios
+      .post("http://localhost:5000/doc/addThumbB", {
+        fileId: id,
+        thumbB: thumbnail,
+      })
+      .then((res) => {
+        // console.log(res);
+      })
+
+      .catch((err) => {
+        // console.log(err);
+      });
+  };
   const deleteFile = async (id) => {
     try {
       setLoading(true);
@@ -103,6 +211,7 @@ const Main = ({ showInfo }) => {
       if (res.ok) {
         const updatedDocs = docs.filter((doc) => doc._id !== id);
         setDocs(updatedDocs);
+
         setLoading(false);
       }
     } catch (error) {
@@ -116,14 +225,35 @@ const Main = ({ showInfo }) => {
   const showCreateFol = () => {
     setShowFolModal(true);
   };
-  // const hideModal = () => {
-  //   setShowModal(false);
-  // };
+  const createFolderHandler = async (folderName) => {
+    try {
+      setProgress(true);
+      const currDate = new Date();
+      const response = await axios.post("http://localhost:5000/folder/create", {
+        name: folderName,
+        created: currDate,
+        modified: currDate,
+      });
+      if (response.status === 200) {
+        setProgress(false);
+        // console.log(response.data.data);
+        window.location.reload();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className={classes.MainWrapper}>
       {showModal && <Modal hideModal={setShowModal} />}
-      {showFolModal && <FolModal hideModal={setShowFolModal} />}
-      {(progress || loading) && <Progress />}
+      {showFolModal && (
+        <FolModal
+          hideModal={setShowFolModal}
+          createFolderHandler={createFolderHandler}
+        />
+      )}
+      {loading && <Progress text="Loading..." />}
+      {progress && <Progress text="Updating..." />}
       {/* Docs Title */}
       <div
         className={clsx(
@@ -171,6 +301,14 @@ const Main = ({ showInfo }) => {
           {/* Favourites */}
           <Favourites
             theDocs={docs}
+            theFols={folders}
+            toggleFav={toggleFav}
+            showInfo={showInfo}
+            selectDoc={selectDoc}
+          />
+
+          <Folders
+            theFols={folders}
             toggleFav={toggleFav}
             showInfo={showInfo}
             selectDoc={selectDoc}
@@ -193,6 +331,8 @@ const Main = ({ showInfo }) => {
           )}
         </div>
       </div>
+      <div ref={viewer} hidden></div>
+      <div ref={viewerB} hidden></div>
     </div>
   );
 };

@@ -37,6 +37,14 @@ const DocSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  thumbA: {
+    type: String,
+    required: false,
+  },
+  thumbB: {
+    type: String,
+    required: false,
+  },
   modified: {
     type: String,
     required: false,

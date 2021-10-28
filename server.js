@@ -24,6 +24,8 @@ app.use(cors());
 // Route
 app.use("/doc", require("./routes/doc"));
 
+app.use("/folder", require("./routes/folder"));
+
 const port = 5000;
 
 app.listen(port, () => `Server running on port ${port}`);

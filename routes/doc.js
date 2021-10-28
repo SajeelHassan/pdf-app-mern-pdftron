@@ -79,6 +79,36 @@ router.post("/updatePdf", async (req, res) => {
   }
 });
 
+router.post("/addThumb", async (req, res) => {
+  // console.log("Add Thumb Req");
+  // console.log(req.body.fileId);
+  try {
+    const doc = await Doc.findById(req.body.fileId);
+    await doc.updateOne({
+      thumbA: req.body.thumbA,
+    });
+
+    res.status(200).json({ data: doc });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.post("/addThumbB", async (req, res) => {
+  // console.log("Add ThumbB Req");
+  // console.log(req.body.fileId);
+  try {
+    const doc = await Doc.findById(req.body.fileId);
+    await doc.updateOne({
+      thumbB: req.body.thumbB,
+    });
+
+    res.status(200).json({ data: doc });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 router.delete("/delete/:id", async (req, res) => {
   try {
     // Find doc by id
